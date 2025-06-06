@@ -43,7 +43,6 @@ if (isset($_GET['halaman'])) {
                 <a href="index.php?halaman=home" class="<?php echo ($halaman_aktif == 'home') ? 'active' : ''; ?>">Home</a>
                 <a href="index.php?halaman=tagihan" class="<?php echo ($halaman_aktif == 'tagihan') ? 'active' : ''; ?>">Tagihan</a>
                 <a href="index.php?halaman=riwayat" class="<?php echo ($halaman_aktif == 'riwayat') ? 'active' : ''; ?>">Riwayat</a>
-                <a href="#">Chat Admin</a>
             </div>
             <div class="user-section">
                 <span class="user-name"><?php echo htmlspecialchars($siswa_nama); ?></span>

@@ -1,11 +1,11 @@
 <?php
 session_start();
 if (isset($_SESSION['siswa_id'])) {
-    header("Location: ../halaman/home.php");
+    header("Location: ./halaman/home.php");
     exit();
 }
 if (isset($_SESSION['admin_id'])) {
-    header("Location: ../admin/admin.php");
+    header("Location: ./admin/admin.php");
     exit();
 }
 
@@ -200,13 +200,23 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
             <h1 class="welcome-text">Welcome to Page</h1>
             <h4 class="sign-in-text">Sign in to continue access</h4>
         </div>
-        <!-- <a class="company-text" href="https://smkntrucukbjn.sch.id/" target="_blank" rel="noopener noreferrer">
-          www.SMKNtrucuk.com
-        </a> -->
     </section>
+
     <section class="right-panel" aria-label="Login form">
       <h2 class="login-title">Login Siswa</h2>
-      <?php echo $error; ?>
+
+        <?php if (isset($_GET['status']) && $_GET['status'] == 'reg_success'): ?>
+            <div style="background-color: rgba(30, 255, 180, 0.1); color: #1effb4; border: 1px solid rgba(30, 255, 180, 0.3); padding: 15px; margin-bottom: 20px; border-radius: 8px; text-align: center; font-weight: 500;">
+                Registrasi Admin berhasil! Silakan login.
+            </div>
+        <?php endif; ?>
+        
+        <?php if (!empty($error)): ?>
+            <div style="background-color: rgba(255, 82, 82, 0.1); color: #ff5252; border: 1px solid rgba(255, 82, 82, 0.3); padding: 15px; margin-bottom: 20px; border-radius: 8px; text-align: center; font-weight: 500;">
+                <?php echo $error; ?>
+            </div>
+        <?php endif; ?>
+      
       <form action="../proses/proses_login.php" method="POST" id="loginForm">
         <input type="hidden" name="login_type" value="siswa" id="loginType">
         <div class="input-group" id="siswaNameGroup">
@@ -230,6 +240,11 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
       <div class="login-type-toggle">
         <a id="toggleLoginType" onclick="toggleLoginType()">Login sebagai Admin</a>
       </div>
+
+      <div class="login-type-toggle" id="adminRegisterLink" style="display: none; margin-top: 15px;">
+        <p>Admin baru? <a href="../admin/register.php" style="color: #00BFFF; text-decoration: none; font-weight: 600;">Daftar di sini</a></p>
+      </div>
+
     </section>
   </div>
 
@@ -237,6 +252,10 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
     function toggleLoginType() {
       const loginType = document.getElementById('loginType');
       const toggleLink = document.getElementById('toggleLoginType');
+      const registerLink = document.getElementById('adminRegisterLink');
+      
+      // KODE DEBUG: Kita cek apakah elemennya ditemukan atau tidak
+      console.log("Elemen link registrasi yang ditemukan:", registerLink);
       
       if (loginType.value === 'siswa') {
         // Switch to admin login
@@ -248,12 +267,16 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
         document.getElementById('adminUserGroup').style.display = 'block';
         document.getElementById('adminPassGroup').style.display = 'block';
         
-        // Make admin fields required
+        // Tampilkan link registrasi admin
+        if (registerLink) { // Cek dulu apakah elemennya ada sebelum mengubah style
+            registerLink.style.display = 'block';
+        }
+        
         document.querySelector('input[name="username"]').required = true;
         document.querySelector('input[name="password"]').required = true;
-        // Make student fields not required
         document.querySelector('input[name="nama"]').required = false;
         document.querySelector('input[name="nisn"]').required = false;
+
       } else {
         // Switch to student login
         loginType.value = 'siswa';
@@ -263,11 +286,14 @@ if (isset($_GET['error']) && $_GET['error'] == 1) {
         document.getElementById('siswaNisnGroup').style.display = 'block';
         document.getElementById('adminUserGroup').style.display = 'none';
         document.getElementById('adminPassGroup').style.display = 'none';
+
+        // Sembunyikan link registrasi admin
+        if (registerLink) { // Cek dulu apakah elemennya ada
+            registerLink.style.display = 'none';
+        }
         
-        // Make student fields required
         document.querySelector('input[name="nama"]').required = true;
         document.querySelector('input[name="nisn"]').required = true;
-        // Make admin fields not required
         document.querySelector('input[name="username"]').required = false;
         document.querySelector('input[name="password"]').required = false;
       }

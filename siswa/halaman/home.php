@@ -1,3 +1,13 @@
+<?php
+// FILE: halaman/tagihan.php
+
+// Pastikan variabel sesi ada, jika tidak redirect (pengaman tambahan)
+if (!isset($_SESSION['siswa_id'])) {
+    exit('Sesi tidak valid.');
+}
+$siswa_id = $_SESSION['siswa_id'];
+
+?>
 <link rel="stylesheet" href="./style/style.css">
 <section aria-label="Hero section with headline and image" class="hero">
     <div class="hero-image-container">

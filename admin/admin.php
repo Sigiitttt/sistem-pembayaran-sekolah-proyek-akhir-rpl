@@ -4,7 +4,7 @@ require_once '../services/koneksi.php';
 
 // Check if admin is logged in
 if (!isset($_SESSION['admin_id'])) {
-    header("Location: ../login.php");
+    header("Location: ../siswa/login.php?error=1");
     exit();
 }
 $admin_nama = $_SESSION['admin_nama'] ?? 'Admin';
