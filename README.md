@@ -17,7 +17,7 @@ Aplikasi web sederhana untuk mengelola pembayaran SPP sekolah, dibuat dengan PHP
 - 🧑‍🎓 **Kelola Data Siswa** (Tambah, Edit, Hapus, dan Cari Siswa).
 - 🧾 **Kelola Jenis Tagihan** (Tambah, Edit, Hapus Tagihan seperti "SPP Juli", "Uang Gedung", dll).
 - 🔗 **Tetapkan Tagihan** ke masing-masing siswa.
-- ⚙️ **Halaman Pengaturan** untuk mengubah info sekolah dll
+- ⚙️ **Halaman Pengaturan** 
 - ✨ **Tampilan Kaca (Glassmorphism)** dengan latar belakang gradien bergerak yang keren.
 
 
