@@ -1,0 +1,544 @@
+/* admin_style.css */
+
+/* --- Import Font & Reset --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #1a1a2e;
+    color: #e0e0e0;
+    overflow: hidden; /* Mencegah scroll karena gradien */
+}
+
+/* --- Latar Belakang Aurora Gradient Bergerak --- */
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.aurora {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.4;
+}
+
+.aurora-1 {
+    width: 500px;
+    height: 500px;
+    background: #8A2BE2; /* BlueViolet */
+    top: -150px;
+    left: -150px;
+    animation: move-aurora-1 20s infinite alternate;
+}
+
+.aurora-2 {
+    width: 400px;
+    height: 400px;
+    background: #00BFFF; /* DeepSkyBlue */
+    bottom: -100px;
+    right: -100px;
+    animation: move-aurora-2 25s infinite alternate;
+}
+
+@keyframes move-aurora-1 {
+    from { transform: translate(0, 0) rotate(0deg); }
+    to { transform: translate(300px, 200px) rotate(180deg); }
+}
+
+@keyframes move-aurora-2 {
+    from { transform: translate(0, 0) rotate(0deg); }
+    to { transform: translate(-300px, -150px) rotate(270deg); }
+}
+
+/* --- Layout Utama (Sidebar + Konten) --- */
+.dashboard-layout {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 260px;
+    background: rgba(26, 26, 46, 0.5);
+    backdrop-filter: blur(10px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.sidebar-header img {
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-header h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #e0e0e0;
+    text-decoration: none;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.sidebar-nav a:hover, .sidebar-nav a.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-weight: 500;
+}
+
+.sidebar-nav a .icon {
+    width: 20px;
+    text-align: center;
+}
+
+.user-profile {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- Konten Utama --- */
+.main-content {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto; /* Hanya konten yang bisa di-scroll */
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.main-header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: rgba(255, 0, 0, 0.3);
+    border-color: rgba(255, 0, 0, 0.5);
+}
+
+
+/* --- Kartu Dashboard --- */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: rgba(43, 43, 74, 0.5); /* Warna dasar kaca */
+    backdrop-filter: blur(12px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    opacity: 0; /* Untuk animasi scroll */
+    transform: translateY(20px); /* Untuk animasi scroll */
+    animation: fade-in 0.5s forwards;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Efek border glow saat hover */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 15px;
+    border: 2px solid transparent;
+    background: linear-gradient(135deg, #00BFFF, #8A2BE2) border-box;
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) padding-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card-content {
+    position: relative; /* Agar konten tidak tertutup glow */
+    z-index: 2;
+}
+
+.card-icon {
+    font-size: 2rem;
+    color: #00BFFF;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #e0e0e0;
+}
+
+.card .value {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.card .action-link {
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.card .action-link:hover {
+    color: #00BFFF;
+}
+
+/* --- Animasi Scroll Fade-In --- */
+@keyframes fade-in {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- TAMBAHAN BARU: Style untuk Form & Tabel --- */
+
+/* Wrapper untuk konten seperti form atau tabel */
+.content-box {
+    background: rgba(43, 43, 74, 0.5); /* Warna dasar kaca */
+    backdrop-filter: blur(12px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.content-box h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 15px;
+}
+
+/* Style untuk Form */
+.modern-form .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.modern-form .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.modern-form label {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #c0c0c0;
+}
+
+.modern-form input,
+.modern-form select {
+    background: rgba(26, 26, 46, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.modern-form input:focus,
+.modern-form select:focus {
+    outline: none;
+    border-color: #00BFFF;
+    box-shadow: 0 0 10px rgba(0, 191, 255, 0.3);
+}
+
+/* Style untuk Tabel Data */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th, .data-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.data-table thead th {
+    color: #fff;
+    font-weight: 600;
+    background-color: rgba(0, 191, 255, 0.1);
+}
+
+.data-table tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+.data-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* --- TAMBAHAN BARU: Style untuk Tombol (Buttons) --- */
+.btn-group {
+    margin-top: 25px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, #00BFFF, #1E90FF);
+    color: white;
+}
+.btn-primary:hover {
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+}
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.btn-edit {
+    background: rgba(30, 255, 180, 0.2); /* Warna hijau mint */
+    color: #1effb4;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+}
+.btn-edit:hover {
+    background: rgba(30, 255, 180, 0.4);
+    color: #fff;
+}
+
+.btn-delete {
+    background: rgba(255, 82, 82, 0.2); /* Warna merah */
+    color: #ff5252;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+}
+.btn-delete:hover {
+    background: rgba(255, 82, 82, 0.4);
+    color: #fff;
+}
+/* --- TAMBAHAN BARU: Animasi Buka-Tutup Form --- */
+
+.content-box.collapsible {
+    /* Atur transisi untuk animasi yang halus */
+    transition: max-height 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                opacity 0.5s ease-in-out,
+                padding 0.5s ease-in-out,
+                margin-bottom 0.5s ease-in-out;
+    overflow: hidden;
+}
+
+.content-box.collapsed {
+    /* Kondisi saat form tersembunyi */
+    max-height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-width: 0;
+}
+
+/* admin_style.css (Versi dengan Light/Dark Mode) */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* --- LANGKAH 1: DEFINISI VARIABEL WARNA --- */
+:root {
+    /* Ini adalah warna default (Dark Mode) */
+    --bg-color: #1a1a2e;
+    --sidebar-bg: rgba(26, 26, 46, 0.5);
+    --card-bg: rgba(43, 43, 74, 0.5);
+    --text-primary: #e0e0e0;
+    --text-secondary: #c0c0c0;
+    --text-title: #ffffff;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --input-bg: rgba(26, 26, 46, 0.7);
+    --hover-bg: rgba(255, 255, 255, 0.05);
+    --active-nav-bg: rgba(255, 255, 255, 0.1);
+    --glow-gradient: linear-gradient(135deg, #00BFFF, #8A2BE2);
+    --aurora-1-color: #8A2BE2;
+    --aurora-2-color: #00BFFF;
+    --btn-primary-bg: linear-gradient(90deg, #00BFFF, #1E90FF);
+}
+
+body.light-mode {
+    /* Variabel ini akan aktif jika body memiliki class 'light-mode' */
+    --bg-color: #f0f2f5;
+    --sidebar-bg: #ffffff;
+    --card-bg: rgba(255, 255, 255, 0.8);
+    --text-primary: #333333;
+    --text-secondary: #555555;
+    --text-title: #1a1a2e;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --input-bg: #f0f2f5;
+    --hover-bg: rgba(0, 0, 0, 0.05);
+    --active-nav-bg: rgba(0, 0, 0, 0.1);
+    --glow-gradient: linear-gradient(135deg, #007BFF, #00BFFF);
+    --aurora-1-color: #007BFF;
+    --aurora-2-color: #87CEEB;
+    --btn-primary-bg: linear-gradient(90deg, #007BFF, #0056b3);
+}
+
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color); /* Menggunakan variabel */
+    color: var(--text-primary); /* Menggunakan variabel */
+    overflow: hidden;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* --- Latar Belakang & Layout (Menggunakan Variabel) --- */
+.background-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
+.aurora { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.4; transition: background 0.5s ease; }
+.aurora-1 { width: 500px; height: 500px; background: var(--aurora-1-color); top: -150px; left: -150px; animation: move-aurora-1 20s infinite alternate; }
+.aurora-2 { width: 400px; height: 400px; background: var(--aurora-2-color); bottom: -100px; right: -100px; animation: move-aurora-2 25s infinite alternate; }
+@keyframes move-aurora-1 { from { transform: translate(0, 0) rotate(0deg); } to { transform: translate(300px, 200px) rotate(180deg); } }
+@keyframes move-aurora-2 { from { transform: translate(0, 0) rotate(0deg); } to { transform: translate(-300px, -150px) rotate(270deg); } }
+
+.dashboard-layout { display: flex; height: 100vh; }
+.sidebar { width: 260px; background: var(--sidebar-bg); backdrop-filter: blur(10px); border-right: 1px solid var(--border-color); padding: 20px; display: flex; flex-direction: column; transition: background-color 0.5s ease, border-color 0.5s ease; }
+.sidebar-header img { height: 50px; border-radius: 50%; border: 2px solid var(--border-color); }
+.sidebar-header h2 { font-size: 1.2rem; font-weight: 600; color: var(--text-title); }
+.sidebar-nav a { display: flex; align-items: center; gap: 15px; color: var(--text-secondary); text-decoration: none; padding: 15px; border-radius: 8px; margin-bottom: 10px; transition: background 0.3s ease, color 0.3s ease; }
+.sidebar-nav a:hover, .sidebar-nav a.active { background: var(--active-nav-bg); color: var(--text-title); font-weight: 500; }
+.sidebar-nav a .icon { width: 20px; text-align: center; }
+.user-profile { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-color); }
+
+.main-content { flex: 1; padding: 30px; overflow-y: auto; }
+.main-header h1 { font-size: 2rem; font-weight: 600; color: var(--text-title); }
+.logout-btn { display: flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.1); border: 1px solid var(--border-color); color: var(--text-title); padding: 10px 15px; border-radius: 8px; text-decoration: none; transition: all 0.3s ease; }
+.logout-btn:hover { background: rgba(255, 0, 0, 0.3); border-color: rgba(255, 0, 0, 0.5); }
+
+/* --- Kartu, Form, Tabel (Menggunakan Variabel) --- */
+.content-box { background: var(--card-bg); backdrop-filter: blur(12px); border-radius: 15px; border: 1px solid var(--border-color); padding: 30px; margin-bottom: 30px; transition: background-color 0.5s ease, border-color 0.5s ease; }
+.content-box h2 { color: var(--text-title); font-size: 1.5rem; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
+.card { background: var(--card-bg); /* ... sisa style card ... */ border-radius: 15px; border: 1px solid var(--border-color); padding: 25px; /* ... */ transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer; opacity: 0; transform: translateY(20px); animation: fade-in 0.5s forwards; }
+.card:hover { transform: translateY(-8px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); }
+.card::before { /* ... style glow ... */ background: var(--glow-gradient) border-box; /* ... */ }
+.card h3 { color: var(--text-secondary); }
+.card .value { color: var(--text-title); }
+.card .action-link, .card .action-link:hover { color: var(--text-title); }
+@keyframes fade-in { to { opacity: 1; transform: translateY(0); } }
+
+.modern-form label { color: var(--text-secondary); }
+.modern-form input, .modern-form select { background: var(--input-bg); border: 1px solid var(--border-color); color: var(--text-primary); /* ... sisa style input ... */ }
+.modern-form input:focus, .modern-form select:focus { /* ... */ border-color: #00BFFF; /* ... */ }
+.data-table th, .data-table td { border-bottom: 1px solid var(--border-color); }
+.data-table thead th { color: var(--text-title); background-color: rgba(0, 191, 255, 0.1); }
+.data-table tbody tr:hover { background-color: var(--hover-bg); }
+
+/* --- Tombol (Menggunakan Variabel) --- */
+.btn-group { margin-top: 25px; display: flex; gap: 10px; }
+.btn { /* ... style dasar tombol ... */ }
+.btn-primary { background: var(--btn-primary-bg); color: white; }
+.btn-primary:hover { box-shadow: 0 0 15px rgba(0, 191, 255, 0.5); transform: translateY(-2px); }
+.btn-secondary { background: var(--active-nav-bg); color: var(--text-secondary); }
+.btn-secondary:hover { background: var(--hover-bg); }
+.btn-edit { background: rgba(30, 255, 180, 0.2); color: #1effb4; /* ... */ }
+.btn-delete { background: rgba(255, 82, 82, 0.2); color: #ff5252; /* ... */ }
+
+/* --- Style Notifikasi & Pagination (Menggunakan Variabel) --- */
+.alert-success { background-color: rgba(30, 255, 180, 0.1); color: #1effb4; border-color: rgba(30, 255, 180, 0.3); }
+.pagination a, .pagination span { background: var(--active-nav-bg); color: var(--text-secondary); }
+.pagination a:hover { background: var(--hover-bg); }
+.pagination span.current { background: #00BFFF; color: white; font-weight: 600; }
+
+/* --- BARU: Style untuk Tombol Toggle Dark/Light Mode --- */
+.theme-switcher { display: flex; align-items: center; gap: 10px; padding: 10px 0; }
+.theme-switcher label { font-weight: 500; color: var(--text-secondary); }
+.toggle-switch { position: relative; display: inline-block; width: 50px; height: 26px; }
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--input-bg); border: 1px solid var(--border-color); border-radius: 26px; transition: .4s; }
+.slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 4px; bottom: 3px; background-color: var(--text-secondary); border-radius: 50%; transition: .4s; }
+input:checked + .slider { background-color: #00BFFF; }
+input:checked + .slider:before { transform: translateX(22px); }
+
+/* Animasi Buka Tutup Form */
+.content-box.collapsible { transition: max-height 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease-in-out, padding 0.5s ease-in-out, margin-bottom 0.5s ease-in-out; overflow: hidden; }
+.content-box.collapsed { max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; margin-bottom: 0; border-width: 0; }
