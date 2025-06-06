@@ -9,7 +9,7 @@ Aplikasi web sederhana untuk mengelola pembayaran SPP sekolah, dibuat dengan PHP
 ### Untuk Siswa:
 - 🚪 **Login & Keamanan Sesi**
 - 📄 **Lihat Daftar Tagihan** dengan status "Lunas" atau "Belum Lunas".
-- 💳 **Bayar Langsung via Midtrans** (Mode Sandbox untuk uji coba).
+- 💳 **Bayar Langsung via Midtrans**
 - 📜 **Cek Riwayat Pembayaran** yang sudah dilakukan.
 
 ### Untuk Admin:
@@ -17,8 +17,9 @@ Aplikasi web sederhana untuk mengelola pembayaran SPP sekolah, dibuat dengan PHP
 - 🧑‍🎓 **Kelola Data Siswa** (Tambah, Edit, Hapus, dan Cari Siswa).
 - 🧾 **Kelola Jenis Tagihan** (Tambah, Edit, Hapus Tagihan seperti "SPP Juli", "Uang Gedung", dll).
 - 🔗 **Tetapkan Tagihan** ke masing-masing siswa.
-- ⚙️ **Halaman Pengaturan** untuk mengubah info sekolah dan Kunci API Midtrans tanpa sentuh kode.
+- ⚙️ **Halaman Pengaturan** untuk mengubah info sekolah dll
 - ✨ **Tampilan Kaca (Glassmorphism)** dengan latar belakang gradien bergerak yang keren.
+- **Tema Gelap & Terang:** Tampilan panel admin bisa diganti-ganti sesuka hati!
 
 ---
 
@@ -27,7 +28,7 @@ Aplikasi web sederhana untuk mengelola pembayaran SPP sekolah, dibuat dengan PHP
 - **Backend:** PHP
 - **Database:** MySQL
 - **Frontend:** HTML, CSS (dengan CSS Variables), JavaScript
-- **Pembayaran:** Integrasi Midtrans Snap
+- **Pembayaran:** 
 
 
 
